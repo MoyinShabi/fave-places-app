@@ -14,14 +14,14 @@ final theme = ThemeData().copyWith(
     useMaterial3: true,
     scaffoldBackgroundColor: colorScheme.background,
     colorScheme: colorScheme,
-    textTheme: GoogleFonts.ubuntuCondensedTextTheme().copyWith(
-      titleSmall: GoogleFonts.ubuntuCondensed(
+    textTheme: GoogleFonts.sourceSansProTextTheme().copyWith(
+      titleSmall: GoogleFonts.sourceSansPro(
         fontWeight: FontWeight.bold,
       ),
-      titleMedium: GoogleFonts.ubuntuCondensed(
+      titleMedium: GoogleFonts.sourceSansPro(
           // fontWeight: FontWeight.bold,
           ),
-      titleLarge: GoogleFonts.ubuntuCondensed(
+      titleLarge: GoogleFonts.sourceSansPro(
         fontWeight: FontWeight.bold,
       ),
     ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../providers/fave_places_provider.dart';
+import '../widgets/image_input.dart';
 
 class NewPlaceScreen extends ConsumerStatefulWidget {
   const NewPlaceScreen({super.key});
@@ -50,6 +51,8 @@ class _NewPlaceScreenState extends ConsumerState<NewPlaceScreen> {
                 labelStyle: Theme.of(context).textTheme.titleMedium,
               ),
             ),
+            const SizedBox(height: 20),
+            const ImageInput(),
             const SizedBox(height: 20),
             ElevatedButton.icon(
               onPressed: _addPlace,
