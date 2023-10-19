@@ -14,7 +14,10 @@ class FavePlacesNotifier extends Notifier<List<Place>> {
 
   void addPlace(String title) {
     final selectedImage = ref.read(imageProvider);
-    final newPlace = Place(title: title, image: selectedImage);
+    final newPlace = Place(
+      title: title,
+      image: selectedImage,
+    );
     state = [newPlace, ...state];
   }
 }

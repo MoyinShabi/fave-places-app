@@ -29,7 +29,7 @@ class _ImageInputState extends ConsumerState<ImageInput> {
 
   @override
   Widget build(BuildContext context) {
-    final File? selectedImage = ref.watch(imageProvider);
+    final File selectedImage = ref.watch(imageProvider);
 
     Widget content = TextButton.icon(
       onPressed: takePicture,
@@ -39,7 +39,7 @@ class _ImageInputState extends ConsumerState<ImageInput> {
         foregroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
-    if (selectedImage?.path != '') {
+    if (selectedImage.path != '') {
       content = Stack(
         children: [
           GestureDetector(
@@ -52,7 +52,7 @@ class _ImageInputState extends ConsumerState<ImageInput> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.file(
-                selectedImage!,
+                selectedImage,
                 fit: BoxFit.cover,
                 height: double.infinity,
                 width: double.infinity,
@@ -81,7 +81,6 @@ class _ImageInputState extends ConsumerState<ImageInput> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          // width: 4,
           color: Theme.of(context).colorScheme.secondary,
         ),
       ),

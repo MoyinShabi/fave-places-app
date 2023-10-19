@@ -34,8 +34,9 @@ class PlacesList extends StatelessWidget {
             ),
           );
         },
-        contentPadding: EdgeInsets.zero,
+        contentPadding: const EdgeInsets.only(bottom: 16),
         leading: CircleAvatar(
+          radius: 26,
           backgroundImage: FileImage(places[index].image),
         ),
         title: Text(

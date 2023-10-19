@@ -1,7 +1,9 @@
+import 'package:fave_places_app/widgets/location_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../providers/fave_places_provider.dart';
+// import '../providers/image_provider.dart';
 import '../widgets/image_input.dart';
 
 class NewPlaceScreen extends ConsumerStatefulWidget {
@@ -13,7 +15,6 @@ class NewPlaceScreen extends ConsumerStatefulWidget {
 
 class _NewPlaceScreenState extends ConsumerState<NewPlaceScreen> {
   final _titleController = TextEditingController();
-
   @override
   void dispose() {
     _titleController.dispose();
@@ -25,6 +26,8 @@ class _NewPlaceScreenState extends ConsumerState<NewPlaceScreen> {
     if (enteredTitle.isEmpty) {
       return;
     }
+
+    // final image = ref.read(imageProvider.notifier);
 
     ref.read(favePlacesProvider.notifier).addPlace(enteredTitle);
     Navigator.of(context).pop();
@@ -51,9 +54,11 @@ class _NewPlaceScreenState extends ConsumerState<NewPlaceScreen> {
                 labelStyle: Theme.of(context).textTheme.titleMedium,
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 24),
             const ImageInput(),
-            const SizedBox(height: 20),
+            const SizedBox(height: 24),
+            const LocationInput(),
+            const SizedBox(height: 24),
             ElevatedButton.icon(
               onPressed: _addPlace,
               icon: const Icon(Icons.add),
