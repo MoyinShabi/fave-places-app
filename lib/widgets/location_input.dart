@@ -2,23 +2,28 @@ import 'dart:convert';
 
 import 'package:fave_places_app/models/place_location.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
 
-class LocationInput extends StatefulWidget {
+import '../providers/location_provider.dart';
+
+class LocationInput extends ConsumerStatefulWidget {
   const LocationInput({super.key});
 
   @override
-  State<LocationInput> createState() => _LocationInputState();
+  ConsumerState<LocationInput> createState() => _LocationInputState();
 }
 
-class _LocationInputState extends State<LocationInput> {
-  PlaceLocation? _pickedLocation;
+class _LocationInputState extends ConsumerState<LocationInput> {
+  // PlaceLocation? _pickedLocation;
   bool isGettingLocation = false;
 
   String get locationImage {
-    final lat = _pickedLocation?.latitude;
-    final lng = _pickedLocation?.longitude;
+    final location = ref.watch(locationProvider);
+    final lat = location.latitude;
+    final lng = location.longitude;
+
     return 'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:A%7C$lat,$lng&key=AIzaSyAvuYRCg_tD1XMHlfkmYnABQvaooHvLZvQ';
   }
 
@@ -59,13 +64,15 @@ class _LocationInputState extends State<LocationInput> {
       final response = await http.get(url);
       final data = json.decode(response.body);
       final formattedAddress = data['results'][0]['formatted_address'];
+      ref.read(locationProvider.notifier).setLocation(
+            PlaceLocation(
+              latitude: lat!,
+              longitude: lng!,
+              address: formattedAddress,
+            ),
+          );
 
       setState(() {
-        _pickedLocation = PlaceLocation(
-          latitude: lat!,
-          longitude: lng!,
-          address: formattedAddress,
-        );
         isGettingLocation = false;
       });
     } catch (e) {
@@ -86,13 +93,20 @@ class _LocationInputState extends State<LocationInput> {
 
   @override
   Widget build(BuildContext context) {
+    final location = ref.watch(locationProvider);
     Widget previewContent = Text(
       'No location chosen',
       style: TextStyle(
         color: Theme.of(context).colorScheme.onBackground,
       ),
     );
-    if (_pickedLocation != null) {
+
+    if (location !=
+        const PlaceLocation(
+          latitude: 0,
+          longitude: 0,
+          address: '',
+        )) {
       previewContent = Image.network(
         locationImage,
         fit: BoxFit.cover,

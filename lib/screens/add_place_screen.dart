@@ -27,8 +27,6 @@ class _NewPlaceScreenState extends ConsumerState<NewPlaceScreen> {
       return;
     }
 
-    // final image = ref.read(imageProvider.notifier);
-
     ref.read(favePlacesProvider.notifier).addPlace(enteredTitle);
     Navigator.of(context).pop();
   }
