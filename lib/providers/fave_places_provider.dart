@@ -90,6 +90,5 @@ Future<Database> _getDatabase() async {
 }
 
 final placesFutureProvider = FutureProvider.autoDispose<void>((ref) async {
-  final placesProvider = ref.watch(favePlacesProvider.notifier).loadPlaces();
-  await placesProvider;
+  await ref.watch(favePlacesProvider.notifier).loadPlaces();
 });
