@@ -6,14 +6,14 @@ import '../providers/fave_places_provider.dart';
 // import '../providers/image_provider.dart';
 import '../widgets/image_input.dart';
 
-class NewPlaceScreen extends ConsumerStatefulWidget {
-  const NewPlaceScreen({super.key});
+class AddPlaceScreen extends ConsumerStatefulWidget {
+  const AddPlaceScreen({super.key});
 
   @override
-  ConsumerState<NewPlaceScreen> createState() => _NewPlaceScreenState();
+  ConsumerState<AddPlaceScreen> createState() => _NewPlaceScreenState();
 }
 
-class _NewPlaceScreenState extends ConsumerState<NewPlaceScreen> {
+class _NewPlaceScreenState extends ConsumerState<AddPlaceScreen> {
   final _titleController = TextEditingController();
   @override
   void dispose() {

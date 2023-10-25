@@ -5,12 +5,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/fave_places_provider.dart';
 import '../widgets/places_list.dart';
 
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  @override
+  void initState() {
+    ref.read(placesFutureProvider);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final favePlaces = ref.watch(favePlacesProvider);
+    final placesFuture = ref.watch(placesFutureProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Fave Places'),
@@ -19,7 +31,7 @@ class HomeScreen extends ConsumerWidget {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const NewPlaceScreen(),
+                  builder: (context) => const AddPlaceScreen(),
                 ),
               );
             },
@@ -29,7 +41,15 @@ class HomeScreen extends ConsumerWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(18),
-        child: PlacesList(places: favePlaces),
+        child: placesFuture.when(
+          data: (_) => PlacesList(places: favePlaces),
+          loading: () => const Center(
+            child: CircularProgressIndicator(),
+          ),
+          error: (error, stackTrace) => Center(
+            child: Text(error.toString()),
+          ),
+        ),
       ),
     );
   }
