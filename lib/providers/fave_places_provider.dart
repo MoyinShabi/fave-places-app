@@ -5,9 +5,10 @@ import '../models/place.dart';
 import 'location_provider.dart';
 
 final favePlacesProvider =
-    NotifierProvider<FavePlacesNotifier, List<Place>>(FavePlacesNotifier.new);
+    NotifierProvider.autoDispose<FavePlacesNotifier, List<Place>>(
+        FavePlacesNotifier.new);
 
-class FavePlacesNotifier extends Notifier<List<Place>> {
+class FavePlacesNotifier extends AutoDisposeNotifier<List<Place>> {
   @override
   List<Place> build() {
     return [];
@@ -15,7 +16,7 @@ class FavePlacesNotifier extends Notifier<List<Place>> {
 
   void addPlace(String title) {
     final selectedImage = ref.read(imageProvider);
-    final pickedLocation = ref.watch(locationProvider);
+    final pickedLocation = ref.read(locationProvider);
 
     final newPlace = Place(
       title: title,

@@ -57,10 +57,9 @@ class _NewPlaceScreenState extends ConsumerState<NewPlaceScreen> {
             const SizedBox(height: 24),
             const LocationInput(),
             const SizedBox(height: 24),
-            ElevatedButton.icon(
+            ElevatedButton(
               onPressed: _addPlace,
-              icon: const Icon(Icons.add),
-              label: const Text('Add Place'),
+              child: const Text('Add Place'),
             )
           ],
         ),
